@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+
+
 
 
 const App = () => {
     const [data, setData] = useState({});
-    const navigate = useNavigate();
+
 
     const onChange = (e) => {
         e.preventDefault();
