@@ -6,8 +6,6 @@ import {
 } from "react-router-dom";
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { RegisterUser } from "./Register";
-import { Dashboard } from "./Dashboard";
 import reportWebVitals from './reportWebVitals';
 import { Header } from "./components/Header";
 
@@ -17,15 +15,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
     },
-    {
-        path: "/registerUser",
-        element: <RegisterUser />,
-    },
-    {
-        path: "/dashboard",
-        element: <Dashboard />,
-    },
-
 ])
 const user = localStorage.user ? JSON.parse(localStorage.user) : undefined
 
