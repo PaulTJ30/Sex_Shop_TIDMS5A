@@ -42,7 +42,7 @@ const App = () => {
                             </Col>
                             <Col>
                                 <p>¿No tienes cuenta? ¡Registrate!</p>
-                                
+                                <Button onClick={()=> Navigate("/Register")}>Registrate</Button>
                             </Col>
                         </Row>
                         <Row>
