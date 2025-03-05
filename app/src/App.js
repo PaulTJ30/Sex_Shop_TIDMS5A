@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { UseNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
-const Navigate = UseNavigate();
+
 
 const App = () => {
     const [data, setData] = useState({});
-
+    const Navigate = useNavigate();
 
     const onChange = (e) => {
         e.preventDefault();
@@ -38,11 +38,11 @@ const App = () => {
 
                         <Row className="text-center">
                             <Col>
-                                <Button onClick={()=> Navigate("/Dashboad")}>Ingresar</Button>
+                                <Button onClick={() => Navigate("/Dashboad")}>Ingresar</Button>
                             </Col>
                             <Col>
                                 <p>¿No tienes cuenta? ¡Registrate!</p>
-                                <Button onClick={()=> Navigate("/Register")}>Registrate</Button>
+                                <Button onClick={() => Navigate("/Register")}>Registrate</Button>
                             </Col>
                         </Row>
                         <Row>
