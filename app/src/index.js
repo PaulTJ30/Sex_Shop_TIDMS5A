@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 import { Header } from "./components/Header";
 import Dashboard from "./components/Dashboard"; 
+import Register from "./components/Register";
 
 
 
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: "/Dashboard",
         element: < Dashboard/>,
+    },
+    {
+        path: "/Register",
+        element: < Register/>,
     },
 ])
 const user = localStorage.user ? JSON.parse(localStorage.user) : undefined
