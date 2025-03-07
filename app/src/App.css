@@ -1,0 +1,60 @@
+body {
+    background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20231020/pngtree-crimson-fabric-texture-a-sensual-elegance-image_13635120.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-card {
+    max-width: 900px;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f8d7e2;
+}
+
+.login-form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-image {
+    background: url('./1q.png') no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 0 10px 10px 0;
+}
+
+
+
+.logo-img {
+    max-width: 450px;
+    height: auto;
+}
+
+.custom-button {
+    background-color: #d9534f;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #c9302c;
+}
