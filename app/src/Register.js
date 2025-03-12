@@ -44,7 +44,7 @@ export const RegisterUser = () => {
 
 
                     </Form>
-                </Card.Body>
+                </Card.Body>    
             </Card >
         </Container >
     )
