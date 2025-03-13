@@ -1,7 +1,8 @@
-import { UserModel } from "../models/UsersModel";
+import { UserModel } from "../models/UsersModel.js";
 import jwt from "jsonwebtoken"
 
-const registerUsers = async (req, res) => {
+export const registerUsers = async (req, res) => {
+
     try {
         const name = req.body.name;
         const lastNames = req.body.lastNames;
@@ -45,7 +46,7 @@ const registerUsers = async (req, res) => {
     }
 };
 
-const singIn = async (req, res) => {
+export const singIn = async (req, res) => {
     try {
         const user = await UserModel.findOne({ email: req.body.email, password: req.body.password });
         if (!user) {
@@ -60,4 +61,3 @@ const singIn = async (req, res) => {
     }
 };
 
-module.exports = { registerUsers, singIn };
