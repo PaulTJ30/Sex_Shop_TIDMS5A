@@ -15,6 +15,21 @@ const App = () => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
+    const onSubmit = async () => {
+        //Peticion a la DB
+        try {
+            data.rol = "client"
+            const res = await axios.post("http://localhost:4000/users/sign-in", data)
+            const user = res.data.user
+            user.logined = true
+            localStorage.user = JSON.stringify(user)
+            navigate("/list-q")
+        } catch (error) {
+            alert("Incorrecto")
+        }
+
+    }
+
     return (
         <Container className="login-container">
             <Card className="login-card">

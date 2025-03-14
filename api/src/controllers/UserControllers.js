@@ -2,47 +2,27 @@ import { UserModel } from "../models/UsersModel.js";
 import jwt from "jsonwebtoken"
 
 export const registerUsers = async (req, res) => {
-
     try {
-        const name = req.body.name;
-        const lastNames = req.body.lastNames;
-        const email = req.body.email;
-        const password = req.body.password;
-        const rol = req.body.rol;
+        const { name, lastNames, email, password } = req.body;
 
-        if (req.user?.rol === "administrator" && rol === "client") {
-            return res.status(400).json({ msg: "Los administradores no pueden crear clientes" });
-        }
-
-        if (!name || !email || !lastNames || !password || !rol) {
-            return res.status(400).json({
-                msg: "Faltan datos para crear un usuario"
-            });
-        }
-
-        if (rol === "administrator" && req.user?.rol !== "administrator") {
-            return res.status(400).json({
-                msg: "No puedes crear un nuevo administrador si no eres uno"
-            });
+        if (!name || !email || !lastNames || !password) {
+            return res.status(400).json({ msg: "Faltan datos para crear un usuario" });
         }
 
         const user = await UserModel.create({
             name,
             lastNames,
             email,
-            password,
-            rol
+            password, // Guarda la contraseña tal cual
         });
 
-        const token = jwt.sign(JSON.stringify(user), "shhhh");
+        // Genera el token solo con ID y email
+        const token = jwt.sign({ id: user._id, email: user.email }, "shhhh", { expiresIn: "1h" });
 
-        return res.status(200).json({
-            msg: "Usuario registrado con exito", token
-        });
+        return res.status(200).json({ msg: "Usuario registrado con éxito", token });
     } catch (error) {
-        return res.status(500).json({
-            msg: "Hubo un error al crear el usuario"
-        });
+        console.error("Error al registrar usuario:", error);
+        return res.status(500).json({ msg: "Hubo un error al crear el usuario" });
     }
 };
 
