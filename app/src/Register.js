@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
-
+import axios from "axios"
 
 export const RegisterUser = () => {
     const [data, setData] = useState({});
@@ -15,7 +15,17 @@ export const RegisterUser = () => {
         setData(nData);
         console.log(nData)
     };
-
+    const onSubmit = async () => {
+        /* Enviar data al server */
+        try {
+            data.rol = "client"
+            await axios.post("http://localhost:4000/register", data)
+            navigate("/")
+            alert("Registrado con exito")
+        } catch (error) {
+            alert("hubo un error")
+        }
+    }
 
 
     return (
@@ -40,11 +50,11 @@ export const RegisterUser = () => {
                             <Form.Label>Contraseña:</Form.Label>
                             <Form.Control onChange={onChangeRegister} name="password" type="password" placeholder="Ingresa tu contraseña" />
                         </Form.Group>
-                        <Button>Registrate!</Button>
+                        <Button onClick={() => onSubmit()}>Registrate!</Button>
 
 
                     </Form>
-                </Card.Body>    
+                </Card.Body>
             </Card >
         </Container >
     )

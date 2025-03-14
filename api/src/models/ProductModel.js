@@ -1,10 +1,10 @@
 import mongoose, { Schema, model } from "mongoose";
 
 const ProSchema = new Schema({
-    name: {type:String, required:rue},
-    price: {type:Number, required:true},
-    img:{type:Image, required:false}
+    name: { type: String, required: true },
+    price: { type: Number, required: true },
+    img: { type: String, required: false }
 })
 
 
-export const ProModel = model("product", ProSchema)
+export const ProModel = model("Product", ProSchema)

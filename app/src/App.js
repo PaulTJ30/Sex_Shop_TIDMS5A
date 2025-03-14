@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import TUSLogo from "./sexh.png";
+import axios from "axios"
 
 
 const App = () => {
@@ -19,11 +20,12 @@ const App = () => {
         //Peticion a la DB
         try {
             data.rol = "client"
-            const res = await axios.post("http://localhost:4000/users/sign-in", data)
-            const user = res.data.user
+            const res = await axios.post("http://localhost:4000/login", data)
+            const user = (res.data.user)
             user.logined = true
-            localStorage.user = JSON.stringify(user)
-            navigate("/list-q")
+
+            navigate("/Dashboard")
+            alert("BIENVENIDO!!")
         } catch (error) {
             alert("Incorrecto")
         }
@@ -66,7 +68,7 @@ const App = () => {
                                 <div className="text-center">
                                     <Button
                                         className="w-100 mb-2 custom-button"
-                                        onClick={() => navigate("/Dashboard")}
+                                        onClick={() => onSubmit()}
                                     >
                                         Ingresar
                                     </Button>
@@ -96,7 +98,7 @@ const App = () => {
                     <Col md={6} className="login-image" />
                 </Row>
             </Card>
-        </Container>
+        </Container >
     );
 };
 

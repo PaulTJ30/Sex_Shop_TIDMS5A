@@ -20,5 +20,3 @@ app.use(express.json());
 // Rutas
 app.post('/register', registerUsers);
 app.post('/login', singIn);
-
-
