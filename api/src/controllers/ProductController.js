@@ -44,17 +44,25 @@ export const getProductById = async (req, res) => {
 // Crear producto
 export const createProduct = async (req, res) => {
     try {
-        const { name, price, description } = req.body;
-        const imageUrl = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
+        const { name, price, description, img } = req.body;
 
-        const newProduct = new Product({ name, price, description, image: imageUrl });
+        // Verificar que todos los datos están presentes
+        if (!name || !price || !description || !img) {
+            return res.status(400).json({ msg: "Faltan datos para crear un producto" });
+        }
+
+        // Crear nuevo producto con la URL de la imagen
+        const newProduct = new ProModel({ name, price, description, img });
         await newProduct.save();
 
-        res.status(201).json(newProduct);
+        res.status(201).json({ msg: "Producto creado con éxito", product: newProduct });
     } catch (error) {
-        res.status(500).json({ message: "Error al crear producto", error });
+        console.error("Error al crear el producto:", error);
+        res.status(500).json({ msg: "Error al crear el producto", error: error.message });
     }
 };
+
+
 
 // Actualizar producto
 export const updateProduct = async (req, res) => {
@@ -62,15 +70,15 @@ export const updateProduct = async (req, res) => {
         const { id } = req.params;
         const { name, price, description } = req.body;
 
-        const product = await Product.findById(id);
+        const product = await ProModel.findById(id);
         if (!product) return res.status(404).json({ message: "Producto no encontrado" });
 
         if (req.file) {
             // Elimina la imagen anterior si existe
-            if (product.image) {
-                fs.unlinkSync(path.join(__dirname, "../public", product.image));
+            if (product.img) {
+                fs.unlinkSync(path.join(__dirname, "../public", product.img));
             }
-            product.image = `/uploads/${req.file.filename}`;
+            product.img = `/uploads/${req.file.filename}`;
         }
 
         product.name = name || product.name;
@@ -88,20 +96,16 @@ export const updateProduct = async (req, res) => {
 // Eliminar producto
 export const deleteProduct = async (req, res) => {
     try {
-        const { id } = req.params;
-        const product = await Product.findById(id);
+        const { id } = req.params; // Asegúrate de que el ID se obtiene correctamente
+        const product = await ProModel.findById(id);
 
-        if (!product) return res.status(404).json({ message: "Producto no encontrado" });
-
-        // Eliminar imagen si existe
-        if (product.image) {
-            fs.unlinkSync(path.join(__dirname, "../public", product.image));
+        if (!product) {
+            return res.status(404).json({ message: "Producto no encontrado" });
         }
 
-        await product.remove();
+        await product.deleteOne();
         res.json({ message: "Producto eliminado" });
     } catch (error) {
         res.status(500).json({ message: "Error al eliminar producto", error });
     }
 };
-

@@ -1,53 +1,38 @@
+import axios from "axios";
+import { useState, useEffect } from "react"; // 📌 Importa useState y useEffect
+
 export const Dashboard = () => {
+    const [productos, setProductos] = useState([]); // 📌 Define productos con useState
 
-    const productos = [
-        {
-            name: "Big Ass",
-            description: "Big Ass Muñeca de goma Sex Shop Sexshop tetas coño Sexpop Masturbator Vagina Love Doll",
-            price: "$10",
-            img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS86tgl0qocYuJ0XHuvQ52APJabVP09WwWONg&s"
-        },
-        {
-            name: "Momba",
-            description: "Vibrador conejito de Platanomelón",
-            price: "$8",
-            img: "https://www.platanomelon.mx/cdn/shop/files/PM738_Momba_Web_02_Tecnica.jpg?v=1723660100&width=600"
-        },
-        {
-            name: "Sensei",
-            description: "Sensei",
-            price: "$12",
-            img: "https://www.platanomelon.mx/cdn/shop/files/PM717_Sensei_Web_07_Tecnica.jpg?v=1705047621&width=600"
-        },
-        {
-            name: "Marco&Polo",
-            description: "Dildo de Platanomelón",
-            price: "$9",
-            img: "https://www.platanomelon.mx/cdn/shop/products/Foto-Marco_Polo01_baja.png?v=1649698179&width=600"
-        }
-    ];
-
+    // Obtener todos los productos desde el backend
     const fetchProducts = async () => {
         try {
             const response = await axios.get("http://localhost:4000/products");
-            setProductos(response.data);
+            setProductos(response.data); // 📌 Ahora setProductos está definido
         } catch (error) {
             console.error("Error al obtener los productos:", error);
         }
     };
 
+    // Obtener productos al cargar el componente
     useEffect(() => {
         fetchProducts();
     }, []);
 
+    // Función de compra
     const compra = (name) => {
         alert(`¡Compra exitosa! Has adquirido: ${name}`);
     };
 
+    // Agregar un nuevo producto
     const agregarProducto = async (name, price, img) => {
         try {
             const newProduct = { name, price, img };
-            const response = await axios.post("http://localhost:4000/products", newProduct);
+            const response = await axios.post("http://localhost:4000/products/create", {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
             setProductos([...productos, response.data.product]);
             alert("Producto agregado exitosamente");
         } catch (error) {
@@ -56,18 +41,31 @@ export const Dashboard = () => {
         }
     };
 
-    rreturn (
+    // Eliminar un producto
+    const eliminarProducto = async (id) => {
+        try {
+            const response = await axios.delete(`http://localhost:4000/products/delete/${id}`);
+            setProductos(productos.filter(product => product._id !== id));
+            alert("Producto eliminado exitosamente");
+        } catch (error) {
+            console.error("Error al eliminar producto:", error);
+            alert("Error al eliminar producto");
+        }
+    };
+
+    return (
         <div>
             <h1>Lista de Productos</h1>
             <table>
                 <tbody>
-                    {productos.map(({ name, price, img }) => (
-                        <tr key={name}>
+                    {productos.map(({ _id, name, price, img }) => (
+                        <tr key={_id}>
                             <td>
-                                <img src={`http://localhost:4000/uploads/${img}`} alt={name} width="100" />
+                                <img src={img} alt={name} width="100" />
                                 <h2>{name}</h2>
                                 <p><strong>Precio:</strong> {price}</p>
                                 <button onClick={() => compra(name)}>Comprar</button>
+                                <button onClick={() => eliminarProducto(_id)}>Eliminar</button>
                             </td>
                         </tr>
                     ))}
@@ -92,5 +90,3 @@ export const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
