@@ -3,6 +3,8 @@ import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import { registerUsers, singIn } from "./src/controllers/UserControllers.js";
+import { GetProducts, createProduct } from "./src/controllers/ProductController.js"; 
+
 
 dotenv.config();
 const app = express();
@@ -20,3 +22,5 @@ app.use(express.json());
 // Rutas
 app.post('/register', registerUsers);
 app.post('/login', singIn);
+app.get('/products', GetProducts);
+app.post('/products', upload.single('img'), createProduct); 
