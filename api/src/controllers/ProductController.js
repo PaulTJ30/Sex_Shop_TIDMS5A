@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
 import { ProModel } from "../models/ProductModel.js"; // Cambio aquí
 import multer from "multer";
 import path from "path";
+import { registerUsers } from "./UserControllers.js";
 
 // Configuración de multer
 const storage = multer.diskStorage({
@@ -29,8 +31,11 @@ export const GetProducts = async (req, res) => {
 // Obtener producto por ID
 export const getProductById = async (req, res) => {
     try {
-        const { ID } = req.params;
-        const product = await ProModel.findById(ID); // Cambio aquí
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ msg: "ID invalido" })
+        }
+        const product = await ProModel.findById(id); // Cambio aquí
         if (!product) {
             return res.status(404).json({ msg: "Producto no encontrado" });
         }
@@ -38,6 +43,20 @@ export const getProductById = async (req, res) => {
     } catch (error) {
         console.error("Error al obtener el producto:", error.message);
         res.status(500).json({ msg: "Error al obtener el producto", error: error.message });
+    }
+};
+
+// Obtener productos con búsqueda
+export const GetProductsByName = async (req, res) => {
+    try {
+        const { search } = req.query; // Obtenemos el término de búsqueda de la query string
+        const products = await ProModel.find({
+            name: { $regex: search, $options: "i" } // Búsqueda insensible a mayúsculas y minúsculas
+        });
+        res.status(200).json(products);
+    } catch (error) {
+        console.error("Error al obtener productos:", error.message);
+        res.status(500).json({ msg: "Error al obtener productos", error: error.message });
     }
 };
 

@@ -19,13 +19,13 @@ const App = () => {
     const onSubmit = async () => {
         //Peticion a la DB
         try {
-            data.rol = "client"
+
             const res = await axios.post("http://localhost:4000/login", data)
             const user = (res.data.user)
             user.logined = true
 
             navigate("/Dashboard")
-            alert("BIENVENIDO!!")
+
         } catch (error) {
             alert("Incorrecto")
         }

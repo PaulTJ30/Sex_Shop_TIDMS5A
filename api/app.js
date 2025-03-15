@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import { registerUsers, singIn } from "./src/controllers/UserControllers.js";
-import { GetProducts, createProduct, deleteProduct, updateProduct } from "./src/controllers/ProductController.js";
+import { GetProducts, createProduct, deleteProduct, updateProduct, getProductById } from "./src/controllers/ProductController.js";
 
 
 dotenv.config();
@@ -13,7 +13,7 @@ mongoose.connect(process.env.url_bd)
     .then(() => console.log("Conectado a MongoDB"))
     .catch((err) => console.error("Error conectando a MongoDB:", err));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
 
 app.use(cors());
@@ -28,3 +28,4 @@ app.get('/products', GetProducts);
 app.post('/product/create', createProduct);
 app.put('/product/update/:id', updateProduct)
 app.delete('/product/delete/:id', deleteProduct);
+app.get('/product/:id', getProductById)

@@ -50,10 +50,11 @@ export const RegisterUser = () => {
                             <Form.Label>Contraseña:</Form.Label>
                             <Form.Control onChange={onChangeRegister} name="password" type="password" placeholder="Ingresa tu contraseña" />
                         </Form.Group>
-                        <Button onClick={() => onSubmit()}>Registrate!</Button>
-
-
+                        <Button onClick={() => onSubmit()}>¡Registrate!</Button>
+                        <p>¿Ya tienes cuenta? </p>
+                        <Button onClick={() => navigate("/")}>Inicia sesion aqui</Button>
                     </Form>
+
                 </Card.Body>
             </Card >
         </Container >
