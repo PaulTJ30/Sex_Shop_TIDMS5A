@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import TUSLogo from "./sexh.png";
+import imgd from "./1q.png";
 import axios from "axios"
+
 
 
 const App = () => {
@@ -19,13 +21,13 @@ const App = () => {
     const onSubmit = async () => {
         //Peticion a la DB
         try {
-
+            data.rol = "client"
             const res = await axios.post("http://localhost:4000/login", data)
             const user = (res.data.user)
             user.logined = true
 
             navigate("/Dashboard")
-
+            alert("BIENVENIDO!!")
         } catch (error) {
             alert("Incorrecto")
         }
@@ -43,7 +45,7 @@ const App = () => {
                                     src={TUSLogo}
                                     alt="Logo de Toys 4 Us"
                                     className="logo-img mb-3"
-                                    style={{ width: "250px", height: "auto" }}
+                                    style={{ width: "750px", height: "auto" }}
                                 />
                             </div>
                             <Form>
@@ -68,7 +70,7 @@ const App = () => {
                                 <div className="text-center">
                                     <Button
                                         className="w-100 mb-2 custom-button"
-                                        onClick={() => onSubmit()}
+                                        onClick={() => navigate("/Dashboard")}
                                     >
                                         Ingresar
                                     </Button>
@@ -95,8 +97,18 @@ const App = () => {
                             </Form>
                         </Card.Body>
                     </Col>
-                    <Col md={6} className="login-image" />
+
+                    <Col md={6} className="login-image">
+                        <img
+                            src={imgd}
+                            alt="Imagen de inicio de sesión"
+                            className="img-fluid h-100"
+                            style={{ objectFit: "cover", borderRadius: "0 10px 10px 0" }}
+                        />
+                    </Col>
                 </Row>
+
+
             </Card>
         </Container >
     );

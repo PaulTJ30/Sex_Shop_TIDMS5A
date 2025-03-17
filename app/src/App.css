@@ -1,60 +1,62 @@
-body {
-    background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20231020/pngtree-crimson-fabric-texture-a-sensual-elegance-image_13635120.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
+.login-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+.login-form {
+    background-color: #ffffff;
+    padding: 30px;
+}
+
+.logo-img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.login-form .form-label {
+    font-weight: bold;
+    color: #333333;
+}
+
+.login-form .form-control {
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.custom-button {
+    background-color: #b82020;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.custom-button:hover {
+    background-color: #c35149;
+    cursor: pointer;
+}
+
+.login-image {
+    background: url('./1q.png') no-repeat center;
+    background-size: cover;
+}
+
+
+
+body { background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20231020/pngtree-crimson-fabric-texture-a-sensual-elegance-image_13635120.png'); background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 100vh; 
+} 
 
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-.login-card {
-    max-width: 900px;
-    width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #f8d7e2;
-}
-
-.login-form {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.login-image {
-    background: url('./1q.png') no-repeat center center;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    border-radius: 0 10px 10px 0;
-}
-
-
-
-.logo-img {
-    max-width: 450px;
-    height: auto;
-}
-
-.custom-button {
-    background-color: #d9534f;
-    border: none;
-    color: white;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.custom-button:hover {
-    background-color: #c9302c;
 }
