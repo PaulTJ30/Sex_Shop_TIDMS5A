@@ -1,23 +1,25 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
 export const Dashboard = () => {
     const [productos, setProductos] = useState([]);
     const [editProduct, setEditProduct] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
-    
+
     const fetchProducts = async () => {
         try {
             const response = await axios.get("http://localhost:4000/products");
-            setProductos(response.data);
+            setProductos(response.data || []); // Evita que productos sea undefined
         } catch (error) {
             console.error("Error al obtener los productos:", error);
+            setProductos([]); // Si hay error, al menos aseguramos un array vacío
         }
     };
+    
 
     // Obtener productos al cargar el componente
     useEffect(() => {
@@ -80,13 +82,15 @@ export const Dashboard = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem("user"); 
-        navigate("/"); 
+        localStorage.removeItem("user");
+        navigate("/");
     };
 
-    const filteredProducts = productos.filter((producto) =>
-        producto.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredProducts = productos?.filter((producto) =>
+        producto?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+) || [];
+
+
 
     return (
         <div className="dashboard-container">

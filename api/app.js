@@ -13,7 +13,7 @@ mongoose.connect(process.env.url_bd)
     .then(() => console.log("Conectado a MongoDB"))
     .catch((err) => console.error("Error conectando a MongoDB:", err));
 
-const PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
 
 app.use(cors());

@@ -70,7 +70,7 @@ const App = () => {
                                 <div className="text-center">
                                     <Button
                                         className="w-100 mb-2 custom-button"
-                                        onClick={() => navigate("/Dashboard")}
+                                        onClick={() => onSubmit()}
                                     >
                                         Ingresar
                                     </Button>
